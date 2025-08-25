@@ -1,0 +1,310 @@
+/* part1 */
+.page-wrapper {
+  background-color: #b6e3d4;
+  min-height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 20px;
+  background-color: #b6e3d4;
+  border-radius: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  max-height: 1800px;
+}
+
+.main-text {
+  flex: 1;
+  text-align: left;
+  padding-right: 30px;
+}
+
+.main-text h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.phrase {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 18px 0 10px;
+}
+
+.subtext {
+  font-size: 16px;
+}
+
+.action-buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 16px;
+}
+
+.login-btn,
+.signup-btn {
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.signup-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.animation-box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  min-height: 400px;
+}
+
+.lottie-iframe {
+  width: 100%;
+  max-width: 480px;
+  height: 480px;
+  border: none;
+  background-color: transparent;
+}
+
+/* part 2 Section background */
+.info-section {
+  background-color: #ffd1dc; /* light pink */
+  padding: 40px 20px;
+  min-height: 550px; /* ⬅️ Increase the height */
+  overflow: visible; /* ⬅️ Allow content to flow properly */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -20px;
+}
+
+/* Heading styles */
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #facc15;
+  text-shadow: 1px 1px 3px #000;
+}
+
+/* Container flex layout */
+.features-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: stretch; /* ✅ Ensure equal height */
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 180px; /* ✅ Let it grow with content */
+}
+
+/* For screens under 500px */
+@media (max-width: auto) {
+  .features-container {
+    flex-direction: column;
+  }
+}
+
+/* Box styling */
+.feature-box {
+  flex: 1;
+  padding: 15px;
+  min-width: 165px;
+  max-height: 900px;
+  max-width: 165px;
+
+  border-radius: 12px;
+  border: 1px solid;
+  box-shadow: 0 4px 10px rgba(129, 25, 25, 0.2);
+  transition: transform 0.3s ease;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feature-box:hover {
+  transform: scale(1.05);
+}
+
+/* Backgrounds & borders */
+.feature-1 {
+  background: linear-gradient(to bottom right, #dcd634, #2a2a40);
+  border-color: #facc15;
+}
+
+.feature-2 {
+  background: linear-gradient(to bottom right, #b3dbec, #1b4f5d);
+  border-color: #67e8f9;
+}
+
+.feature-3 {
+  background: linear-gradient(to bottom right, #d4113f, #84d53c);
+  border-color: #f9a8d4;
+}
+
+/* Icon-title row */
+.icon-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: -35px;
+}
+
+/* Icon and title */
+.icon {
+  font-size: 20px;
+}
+
+.title {
+  font-size: 0.3rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Descriptions */
+.desc {
+  font-size: 13px;
+  color: #ddd;
+  line-height: 1.3;
+}
+
+/*  */
+
+/* part 3 live people */
+/* New section wrapper to control background and height */
+.user-reviews {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #b6e3d4;
+  min-height: 1100px;
+  padding: 60px 20px 40px; /* More top padding */
+  width: 100%;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  z-index: 1; /* keep it above background elements */
+}
+
+.review-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin-top: -400px;
+}
+
+.review-wrapper h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d4f3a;
+  margin: 40px 0 30px; /* Adds space above and below */
+  padding: 10px 20px;
+  background-color: #d4ede3;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 300px;
+}
+
+.review-card {
+  width: 200px;
+  height: 200px;
+  background-color: #fff3cd;
+  border: 2px dashed #ffeeba;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.review-text {
+  font-size: 1rem;
+  font-style: italic;
+  color: #856404;
+  margin: 10px 0 4px;
+  max-width: 500px;
+  padding: 0 10px;
+}
+
+.review-author {
+  font-weight: bold;
+  color: #5c3d00;
+  font-size: 0.95rem;
+}
+
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.stat-card {
+  background-color: lightcoral;
+  color: #ffd700;
+  width: 180px;
+  height: 130px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #ffffff;
+  margin-top: 4px;
+}

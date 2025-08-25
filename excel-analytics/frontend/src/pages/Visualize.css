@@ -1,0 +1,147 @@
+html {
+  scroll-padding-top: 100px;
+}
+
+/* === Universal Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === Base Layout === */
+html,
+body {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #f0f2f5;
+  font-family: "Segoe UI", sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* === Main Container === */
+.visualize-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 100px auto 0 auto;
+  padding: 40px 30px 120px 30px; /* Bottom padding instead of margin-bottom */
+  background-color: lightcoral;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-top: 80px;
+}
+
+/* === Title === */
+.title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.highlight {
+  color: #2196f3;
+}
+
+/* === Controls Section === */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  z-index: 2;
+  position: relative;
+}
+
+.controls label {
+  font-weight: 600;
+  margin-right: 6px;
+  font-size: 15px;
+}
+
+.controls select {
+  padding: 8px 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  min-width: 200px;
+  cursor: pointer;
+}
+
+/* === Chart Display Box === */
+.chart-box {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.chart-box canvas {
+  width: 100% !important;
+  height: 500px !important;
+}
+
+/* === Download Buttons === */
+.download-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 35px;
+}
+
+.download-buttons button {
+  background-color: #2196f3;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.download-buttons button:hover {
+  background-color: #1976d2;
+}
+
+.download-buttons button:active {
+  transform: scale(0.97);
+}
+
+/* === Responsive Design === */
+@media screen and (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .controls select {
+    width: 100%;
+  }
+
+  .download-buttons {
+    flex-direction: column;
+  }
+
+  .download-buttons button {
+    width: 90%;
+  }
+
+  .chart-box canvas {
+    height: 350px !important;
+  }
+}
+
+/* === Optional Footer or Spacer === */
+.footer-spacer {
+  height: 100px;
+}
