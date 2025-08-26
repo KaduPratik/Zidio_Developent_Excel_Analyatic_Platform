@@ -13,38 +13,31 @@ const authRouter = require("./Routes/AuthRouter");
 
 const app = express();
 
-// ✅ CORS configuration
+// ✅ CORS configuration (only frontend domains, NOT backend!)
 const allowedOrigins = [
-  "http://localhost:5173", // local frontend
-  "https://excel-vision.onrender.com", // backend (Render)
-  "https://apnaablog.netlify.app", // old test frontend
-  "https://excelvision.netlify.app", // ✅ your current frontend
+  "http://localhost:5173", // Local frontend (Vite dev server)
+  "https://apnaablog.netlify.app", // Old test frontend
+  "https://excelvision.netlify.app", // ✅ Current production frontend
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
+      // Allow requests with no origin (e.g., mobile apps, curl)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(new Error("❌ Not allowed by CORS"));
       }
     },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-// ✅ Preflight OPTIONS handler
-app.options(
-  "*",
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  })
-);
+// ✅ Handle preflight requests globally
+app.options("*", cors());
 
 // ✅ Body parser
 app.use(bodyParser.json());
