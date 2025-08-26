@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const path = require("path");
 
 // Load .env
 dotenv.config();
@@ -12,34 +13,34 @@ const authRouter = require("./Routes/AuthRouter");
 
 const app = express();
 
-// Middleware
+// CORS configuration
+const allowedOrigins = [
+  "http://localhost:8080", // local dev
+  "https://apnaablog.netlify.app", // Netlify frontend
+  "https://excel-vision.onrender.com", // Render frontend
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:8080", // local dev if needed
-      "https://apnaablog.netlify.app", // Netlify frontend
-      "https://excel-vision.onrender.com", // Render frontend
-    ],
-    credentials: true, // allow cookies/auth headers
+    origin: allowedOrigins,
+    credentials: true,
   })
 );
 
-// Optional: handle preflight requests
+// Preflight OPTIONS request handler
 app.options(
   "*",
   cors({
-    origin: [
-      "http://localhost:8080",
-      "https://apnaablog.netlify.app",
-      "https://excel-vision.onrender.com",
-    ],
+    origin: allowedOrigins,
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
 
+// Body parser
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to MongoDB
 mongoose
@@ -47,14 +48,10 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
-    console.log("✅ Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("❌ MongoDB connection error:", err);
-  });
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Routes
+// Routers (use relative paths only)
 app.use("/auth", authRouter);
 app.use("/upload", uploadRouter);
 
@@ -63,7 +60,14 @@ app.get("/", (req, res) => {
   res.send("Welcome to Excel Analytics API");
 });
 
-// Server listen
+// Serve static files if you have a frontend build (optional)
+const frontendPath = path.join(__dirname, "frontend", "dist");
+app.use(express.static(frontendPath));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+
+// Start server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
