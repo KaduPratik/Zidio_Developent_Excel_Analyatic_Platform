@@ -15,7 +15,7 @@ const app = express();
 
 // CORS configuration
 const allowedOrigins = [
-  "http://localhost:8080", // local dev
+  "https://excel-vision.onrender.com", // local dev
   "https://apnaablog.netlify.app", // Netlify frontend
   "https://excel-vision.onrender.com", // Render frontend
 ];
