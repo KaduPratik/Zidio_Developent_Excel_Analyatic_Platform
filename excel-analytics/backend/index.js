@@ -13,13 +13,37 @@ const authRouter = require("./Routes/AuthRouter");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:8080", // local dev if needed
+      "https://apnaablog.netlify.app", // Netlify frontend
+      "https://excel-vision.onrender.com", // Render frontend
+    ],
+    credentials: true, // allow cookies/auth headers
+  })
+);
+
+// Optional: handle preflight requests
+app.options(
+  "*",
+  cors({
+    origin: [
+      "http://localhost:8080",
+      "https://apnaablog.netlify.app",
+      "https://excel-vision.onrender.com",
+    ],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
+
 app.use(bodyParser.json());
 
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL, {
-    // These are not needed anymore but won't cause error
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
