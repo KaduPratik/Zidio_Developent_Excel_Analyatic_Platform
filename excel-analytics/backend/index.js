@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
+const fs = require("fs");
 
 // Load .env
 dotenv.config();
@@ -15,9 +16,8 @@ const app = express();
 
 // CORS configuration
 const allowedOrigins = [
-  "https://excel-vision.onrender.com", // local dev
-  "https://apnaablog.netlify.app", // Netlify frontend
-  "https://excel-vision.onrender.com", // Render frontend
+  "https://excel-vision.onrender.com",
+  "https://apnaablog.netlify.app",
 ];
 
 app.use(
@@ -51,21 +51,30 @@ mongoose
   .then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Routers (use relative paths only)
+// Routers
 app.use("/auth", authRouter);
 app.use("/upload", uploadRouter);
 
 // Default route
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("Welcome to Excel Analytics API");
 });
 
-// Serve static files if you have a frontend build (optional)
+// Serve frontend build safely (only if exists)
 const frontendPath = path.join(__dirname, "frontend", "dist");
-app.use(express.static(frontendPath));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
-});
+
+if (fs.existsSync(frontendPath)) {
+  app.use(express.static(frontendPath));
+
+  app.get("*", (req, res) => {
+    const indexFile = path.join(frontendPath, "index.html");
+    if (fs.existsSync(indexFile)) {
+      res.sendFile(indexFile);
+    } else {
+      res.status(404).send("Frontend not found");
+    }
+  });
+}
 
 // Start server
 const PORT = process.env.PORT || 8080;
