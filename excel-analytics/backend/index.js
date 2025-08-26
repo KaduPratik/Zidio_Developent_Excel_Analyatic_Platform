@@ -16,13 +16,15 @@ const app = express();
 // ✅ CORS configuration
 const allowedOrigins = [
   "http://localhost:5173", // local frontend
-  "https://excel-vision.onrender.com", // deployed backend
-  "https://apnaablog.netlify.app", // deployed frontend
+  "https://excel-vision.onrender.com", // backend (Render)
+  "https://apnaablog.netlify.app", // old test frontend
+  "https://excelvision.netlify.app", // ✅ your current frontend
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -30,6 +32,17 @@ app.use(
       }
     },
     credentials: true,
+  })
+);
+
+// ✅ Preflight OPTIONS handler
+app.options(
+  "*",
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
 
